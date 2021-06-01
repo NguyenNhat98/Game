@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Chinh sua thong tin SinhVien</title>
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+ <link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome-free/css/all.min.css}" >
+
+
+  <!-- Custom styles for this template-->
+  <link rel="stylesheet" type="text/css" th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" >
+  <link href="css/sb-admin.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/sb-admin.css}" >
+  
+  
+  
+  
+    <!-- Bootstrap core JavaScript-->
+  <script type="text/javascript"  th:src="@{/vendor/jquery/jquery.min.js}" ></script>
+  <script type="text/javascript"  th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" ></script>
+
+  <!-- Core plugin JavaScript-->
+  <script type="text/javascript"  th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script type="text/javascript"  th:src="@{/vendor/chart.js/Chart.min.js}" ></script>
+  <script type="text/javascript"  th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
+  <script type="text/javascript"  th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script type="text/javascript"  th:src="@{/js/sb-admin.min.js}" ></script>
+
+ 
+
+
+</head>
+<body>
+<body class="bg-dark">
+
+	<div class="container">
+		<div class="card card-login mx-auto mt-5">
+			<div class="card-header">Chinh sua thong tin</div>
+			<div class="card-body">
+
+
+				<div align="center">
+
+
+					<form th:action="@{/update-sv/} + ${sinhvien.id}" method="POST"
+						th:object="${sinhvien}">
+						<div class="form-group">
+							<div class="form-label-group">
+								Tên Sinh Vien <span style="color: red">*</span> <input class="form-control" th:field="*{name}" required/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="form-label-group">
+								Tuoi <span style="color: red">*</span> <input class="form-control" th:field="*{birth}" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							
+								<label>Chọn Lớp <span style="color: red">*</span></label> <select th:field="*{lop.id}">
+									<option th:each="lop: ${c}" th:value="${lop.id}"
+										th:text="${lop.name}" required/>
+								</select>
+
+							
+						</div>
+							<div class="form-group">
+							
+								<label>Chọn Giáo Viên <span style="color: red">*</span></label> <select th:field="*{gv.id}">
+									<option th:each="gv: ${gv}" th:value="${gv.id}"
+										th:text="${gv.name}" required/>
+								</select>
+
+							
+						</div>
+						
+						
+		
+						
+						
+							<div class="form-group">
+							
+								<label>Chọn Môn Học<span style="color: red">*</span></label> <select th:field="*{sub.id}">
+									<option th:each="sub: ${sub1}" th:value="${sub.id}"
+										th:text="${sub.name}" />
+								</select>
+
+							
+						</div>
+						
+						
+						
+
+						<div class="form-group">
+							<div class="form-label-group">
+								SDT <span style="color: red">*</span> <input class="form-control" th:field="*{sdt}" required/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="form-label-group">
+								Email <span style="color: red">*</span> <input class="form-control" th:field="*{email}" required />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="form-label-group">
+								Dia Chi <span style="color: red">*</span> <input class="form-control" th:field="*{address}" required/>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-label-group">
+								SCORE <span style="color: red">*</span> <input class="form-control" th:field="*{score}" required/>
+							</div>
+						</div>
+
+						<input type="radio" th:field="*{gender}" th:value="NAM" required /><span style="color: red">*</span> <label
+							th:text="NAM" /> <input type="radio" th:field="*{gender}"
+							th:value="NU" required/> <span style="color: red">*</span><label th:text="NU" />
+
+
+					<div class="form-group">
+								<div class="form-label-group">
+									Ghi Chu: <input class="form-control" th:field="*{detail}" />
+								</div>
+							</div> <input class="btn btn-primary btn-block" type="submit"
+							value="Submit" /></form>
+</div>
+
+						
+						
+
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+</body>
+
+</html>
+
+
+

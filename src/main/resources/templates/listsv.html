@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DS SinhVien</title>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  
+ <!-- Custom fonts for this template-->
+  <link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome-free/css/all.min.css}" >
+
+  <!-- Page level plugin CSS-->
+  <!-- Custom styles for this template-->
+  <link rel="stylesheet" type="text/css" th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" >
+  <link href="css/sb-admin.css" rel="stylesheet">
+  
+  
+ 
+</head>
+
+
+<body id="page-top">
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" th:href="@{/}">NA SCHOOL</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+      
+      </div>
+    </form>
+
+    <!-- Navbar -->
+    <ul class="navbar-nav ml-auto ml-md-0">
+      <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-bell fa-fw"></i>
+          <span class="badge badge-danger">9+</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+        
+        </div>
+      </li>
+      <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-envelope fa-fw"></i>
+          <span class="badge badge-danger">7</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+         
+        </div>
+      </li>
+      <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user-circle fa-fw"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">      
+          <a class="dropdown-item" href="#"><span style="text-align: right;"  sec:authentication="principal.username"></span></a>
+          <a class="dropdown-item" href="#">Settings</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/logout}" >Logout</a>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
+
+
+  <div id="wrapper">
+
+     <!-- Sidebar -->
+     <ul class="sidebar navbar-nav">
+      <li class="nav-item active">
+        <a th:href="@{/}" class="nav-link">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      </li>
+      <li class="nav-item waze">
+<!--         <a class="nav-link" href="tables.html"> -->
+        <a th:href="@{/list-gv}" class="nav-link">
+          <i class="fas fa-fw fa-table"></i>
+          <span>DS GIAO VIEN</span></a>
+      </li>
+      <li class="nav-item waze">
+        <a th:href="@{/list-sv}" class="nav-link">
+          <i class="fas fa-fw fa-table"></i>
+          <span>DS SINH VIEN</span></a>
+      </li>
+      <li class="nav-item waze">
+<!--         <a class="nav-link" href="tables.html"> -->
+        <a th:href="@{/list-class}" class="nav-link">
+          <i class="fas fa-fw fa-table"></i>
+          <span>DS LOP</span></a>
+      </li>
+      
+          <li class="nav-item waze">
+        <a th:href="@{/list-subject}" class="nav-link">
+          <i class="fas fa-fw fa-table"></i>
+          <span>DS MON HOC</span></a>
+      </li>
+    </ul>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">NA SCHOOL</li>
+        </ol>
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            DANH SÁCH SINH VIÊN</div>
+            
+
+            
+          <div class="card-body">
+            <div class="table-responsive">
+           
+              
+              
+              <div align="center">
+
+
+<a th:href="@{/list-sv}"><h1>List Sinh Vien</h1></a><br>
+<a th:href="@{/add-sv}">Add Sinh Vien</a><br>
+<br />
+    <form th:action="@{/search-sv}" method="get">
+        <input type="search" name="name">
+        <input type="submit" value="search">
+    </form>
+<br />
+<table class="table table-bordered" id="" cellspacing="0">
+<!-- success message -->
+				<div th:if="${param.success}">
+					<div class="alert alert-info">Bạn đã thêm thành công</div>
+				</div>
+
+   <thead>
+    <tr>
+        <th>MaGV</th>
+        <th>Ten GV</th>
+        <th>Tuổi</th>
+        <th>Lớp</th>
+        <th>Giáo Viên</th>
+       <th>Môn Học</th>
+        <th>SDT</th>
+        <th>Email</th>
+        <th>Dia Chi</th>
+        <th>Gioi Tinh</th>
+        <th>SCORE</th>
+        <th>Ghi Chu</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <th:block th:each="list : ${listsv}">
+    <thead>
+        <tr th:href="@{/add-sv}">
+            <td><a th:href="@{/add-sv}" th:text="${list.id}"></a></td>
+            <td><a th:href="@{/add-sv}" th:text="${list.name}"></a></td>
+            <td><p th:href="@{/add-sv}" th:text="${list.birth}"></p></td>
+            <td><p th:href="@{/add-sv}" th:text="${list.getLop().name}"></p></td>
+            
+     
+            <td><div th:if="${list.getGv().name}"><p th:href="@{/add-sv}" th:text="${list.getGv().name}"> </p></div>
+            <div th:unless="${list.getGv().name}"><p th:href="@{/add-sv}" th:text="NULL"> </p></div>
+            </td>
+            
+            
+            
+<!--             <td><p th:text="${#dates.format(list.getY().year_s, 'yyyy-MM-dd')}"></p></td> -->
+
+<td><p th:href="@{/add-sv}" th:text="${list.getSub().name}"></p></td>
+            <td><p th:href="@{/add-sv}" th:text="${list.sdt}"></p></td>
+            <td><p th:href="@{/add-sv}" th:text="${list.email}"></p></td>
+            <td><p th:href="@{/add-sv}" th:text="${list.address}"></p></td>
+            <td><p th:href="@{/add-sv}" th:text="${list.gender}"></p></td>
+            <td><p th:href="@{/add-sv}" th:text="${list.score}"></p></td>
+            <td><p th:href="@{/add-sv}" th:text="${list.detail}"></p></td>
+            <td><a th:href="@{/edit-sv/} + ${list.id}"> Edit</a></td>
+            <td><a th:href="@{/delete-sv/} + ${list.id}">Delete</a></td>
+        </tr>
+        </thead>
+    </th:block>
+</table>
+
+
+
+<nav aria-label="Page navigation example" th:if="${listsv.totalPages gt 0}">
+    <ul class="pagination justify-content-center font-weight-medium">
+        <li class="page-item" th:classappend="${listsv.number eq 0} ? 'disabled'">
+            <a class="page-link svg-icon"
+               th:href="@{/list-sv?page={id}(id=${listsv.number lt 2 ? 1 : listsv.number})}"
+               aria-label="Previous"
+               title="Previous Page" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20"></span>Previous
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${i eq listsv.number + 1} ? 'active'"
+            th:each="i : ${#numbers.sequence( listsv.number + 1, listsv.totalPages > 5 + listsv.number ? listsv.number + 10 : listsv.totalPages, 1)}">
+            <a class="page-link" th:href="@{/list-sv?page={id}(id=${i})}" th:text="${i}"
+               th:title="${'Page '+ i}"
+               rel="tooltip"></a>
+        </li>
+        <li class="page-item disabled" th:if="${listsv.number + 5 < listsv.totalPages}">
+            <a class="page-link svg-icon" href="#">
+                <span data-feather="more-horizontal" width="20" height="20"></span>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${listsv.number + 1 eq listsv.totalPages} ? 'disabled'">
+            <a class="page-link svg-icon" th:href="@{/list-sv?page={id}(id=${listsv.number + 2})}"
+               aria-label="Next"
+               title="Next Page" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20"></span>Next
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+</div>
+              
+             
+       
+            </div>
+          </div>
+         
+        </div>
+
+        
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+<!--   <!-- Scroll to Top Button--> -->
+<!--   <a class="scroll-to-top rounded" href="#page-top"> -->
+<!--     <i class="fas fa-angle-up"></i> -->
+<!--   </a> -->
+
+<!--   <!-- Logout Modal--> -->
+<!--   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!--     <div class="modal-dialog" role="document"> -->
+<!--       <div class="modal-content"> -->
+<!--         <div class="modal-header"> -->
+<!--           <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5> -->
+<!--           <button class="close" type="button" data-dismiss="modal" aria-label="Close"> -->
+<!--             <span aria-hidden="true">×</span> -->
+<!--           </button> -->
+<!--         </div> -->
+<!--         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div> -->
+<!--         <div class="modal-footer"> -->
+<!--           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+<!--           <a class="btn btn-primary" href="login.html">Logout</a> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+
+<!-- Bootstrap core JavaScript-->
+  <script type="text/javascript"  th:src="@{/vendor/jquery/jquery.min.js}" ></script>
+  <script type="text/javascript"  th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" ></script>
+
+  <!-- Core plugin JavaScript-->
+  <script type="text/javascript"  th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script type="text/javascript"  th:src="@{/vendor/chart.js/Chart.min.js}" ></script>
+  <script type="text/javascript"  th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
+  <script type="text/javascript"  th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script type="text/javascript"  th:src="@{/js/sb-admin.min.js}" ></script>
+
+  <!-- Demo scripts for this page-->
+  <script type="text/javascript"  th:src="@{/js/demo/datatables-demo.js}"></script>
+  <script type="text/javascript"  th:src="@{/js/demo/chart-area-demo.js}"></script>  
+   <script type="text/javascript"  th:src="@{/js/demo/chart-bar-demo.js}"></script>
+   <script type="text/javascript"  th:src="@{/js/demo/chart-pie-demo.js}"></script>
+</body>
+
+</html>
